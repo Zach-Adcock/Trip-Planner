@@ -1,70 +1,98 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import Concerts from "./Concerts";
+import styled from 'styled-components';
 
-const SearchBar = () => {
-    const [city,setCity] = useState('Seattle');
-    const [startDate, setStartDate] = useState('2021-11-18T00:00:00Z');
-    const [endDate, setEndDate] = useState('2021-11-21T00:00:00Z');
-    const [isPending, setIsPending] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
-    // const [refresh, setRefresh] = useState(1);
+const SearchBar = (props) => {
 
-    const enableBtn = () => {
-      setSubmitted(false);
-      setIsPending(false);
-    }
-    
-    const onSearch = (e) => {
-        e.preventDefault();
+    const [formData, setFormData] = useState(
+        {city: "Seattle", startDate: "2021-12-18T00:00:00Z", endDate: "2021-12-20T00:00:00Z"}
+    )
 
-        if (city==='' ||startDate==='' || endDate===''){
-            alert ('Please fill in all fields')
-        } else {
-            setCity('');
-            setStartDate('');
-            setEndDate('');
-        } 
-        
-    
-    //   setRefresh(refresh+1);
-    //   setSubmitted(true);
-    //   setIsPending(true);
+    // console.log(formData);
+
+    const handleChange = e => {
+        setFormData(prevFormData => {
+            return {...prevFormData, [e.target.name]: e.target.value}
+        })
     }
     
     return ( 
-        <div className="search">
-            {/* <Concerts city={city} startDate={startDate} endDate={endDate}  enableBtn={enableBtn} refresh={refresh}/>  */}
-            <form onSubmit={onSearch}>
+        <Wrap>
+            <CityForm onSubmit={(e) => {
+                e.preventDefault();
+                props.updateSearchValues(formData.city, formData.startDate, formData.endDate);
+            }}>    
                 <label>City:</label>
                 <input
                     type="text"
                     required
-                    onChange={(e) => setCity(e.target.value)}
-                    value={city}
+                    onChange={handleChange}
+                    // value={city}
+                    name="city"
 
                 />
                 <label>Start Date:</label>
                 <input
                     type="date"
                     required
-                    onChange={(e) => setStartDate(e.target.value)}
-                    value={startDate}
+                    onChange={handleChange}
+                    // value={startDate}
+                    name="startDate"
                 ></input>
                 <label>End date:</label>
                 <input
                     type="date"
-                    onChange={(e) => setEndDate(e.target.value)}
-                    value={endDate}
+                    onChange={handleChange}
+                    // value={endDate}
+                    name="endDate"
                 >
                 </input>
-                <input type="submit" value="Search"
-                className='btnSearch'/>
+                <SearchButton type="submit" value="Search" className='btnSearch'>
+                    Submit
+                </SearchButton>
                 {/* { isPending && <button disabled>Loading...</button>} */}
-            </form>
-        </div>
+            </CityForm>
+        </Wrap>
      );
 }
  
+const CityForm = styled.form`
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,69,1) 64%, rgba(4,85,113,1) 100%); 
+    margin-top: 5px;
+    color: white;
+    width: 90%;
+    height: 50px;
+    display: flex;
+    /* justify-content: space-between; */
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    border: solid rgb(0,0,0);
+
+    input {
+        display: flex;
+        height: 50%;
+        margin: 0px 10px;
+        align-content: center;
+
+    }
+
+`;
+
+const Wrap = styled.div`
+    display: flex;
+    justify-content: center;
+
+`;
+
+
+const SearchButton = styled.button`
+    width: 20%;
+    height: 25px;
+`;
+
 export default SearchBar;
 // import { useState } from "react";
 // import Concerts from "./Concerts";

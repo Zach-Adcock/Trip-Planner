@@ -1,42 +1,55 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import useEventDataFetch from "./useEventDataFetch";
-import SearchBar from "./SearchBar";
+import styled from 'styled-components';
+
 
 const Concerts = (props) => {
-    console.log('Props ', props.city);
-    const [city,setCity] = useState('Seattle');
-    const [startDate, setStartDate] = useState('2021-11-18T00:00:00Z');
-    const [endDate, setEndDate] = useState('2021-11-19T00:00:00Z');
+    console.log('Props ', props);
+    const [concertArray, setConcertArray] = useState([]);
 
-    // setCity(props.city)
 
-    const { data, isPending, error } = useEventDataFetch(`https://app.ticketmaster.com/discovery/v2/events.json?
-        classificationName=music
-        &city=[${city}]
-        &startDateTime=${startDate}
-        &endDateTime=${endDate}
-        &apikey=VuGevZLFA14RJ1cDz20zVsfKjRbFSVA9`);
-    console.log('Is pending: ', isPending);
-    // const dates = data._embedded.events.dates.start.localDate
-    let fiveConcerts, mappedArray;
-    if (!isPending) {
-        mappedArray = (data._embedded.events);
-        // fiveConcerts = mappedArray.slice(0,5);
+    useEffect(() => {
+        setTimeout(function(){
+            getConcerts()
+        }, 2000); 
+        
+    }, [props]);
 
-        fiveConcerts = mappedArray.reduce((acc, concert) => {
-            if (concert.classifications['0'].segment.name === 'Music'){ //Digs through data for music classification
-                acc.push(concert)
-            }
-            return acc
-        }, []).slice(0,5)
-        // console.log(fiveConcerts);
-    }
+    //makes call to ticketmaster API and filters events categorized as music
+    const getConcerts = () => { 
+        return axios
+            .get(`https://app.ticketmaster.com/discovery/v2/events.json?
+                classificationName=music
+                &city=[${props.city}]
+                &startDateTime=${props.startDate}
+                &endDateTime=${props.endDate}
+                &apikey=VuGevZLFA14RJ1cDz20zVsfKjRbFSVA9`)
+            .then((res) => {
+                let concerts= res.data._embedded.events;
+                let concertsArray = concerts.filter((listing) => { //removes non music events from event list
+                    let classifications = listing.classifications;
+                    return classifications.some((x) => x.segment.name.toLowerCase() === 'music')
+                })
+                console.log(concertsArray)
+                setConcertArray(concertsArray.slice(0,5)); //Only show first five concerts
+            })
+            .catch((err) => console.log(err.message))
+    };
+
+
+
+
     
     
     
     return ( 
-        <div className="concert-display">
-            <div>{ !isPending && fiveConcerts.map(concert => {
+        <Big>
+        <Container>
+            <div>{concertArray.length !== 0 && 'jijio'}</div>
+            {/* { !concertArray && concertArray.map(concert => { */}
+
+            {concertArray.map(concert => {
                 return (
                     <div key={concert.id}>
                         <div>{'Name: ' + concert.name}</div>
@@ -44,9 +57,26 @@ const Concerts = (props) => {
                         <div>{'Venue: ' + concert._embedded.venues['0'].name}</div>
                     </div>
                 )
-            })}</div>
-        </div>
+            })}
+        </Container>
+        </Big>
      );
 }
- 
+
+const Big = styled.div`
+    position: fixed;
+`;
+const Container = styled.div`
+    /* background: green; */
+    position: relative;
+    top: 200px;
+    left: 0px;
+    height: 100px;
+    width: 500px;
+    color: black;
+`;
 export default Concerts;
+
+
+
+   
