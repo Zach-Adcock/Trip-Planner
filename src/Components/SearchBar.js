@@ -56,10 +56,12 @@ const SearchBar = (props) => {
      );
 }
  
+
+
 const CityForm = styled.form`
     background: rgb(2,0,36);
     background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,69,1) 64%, rgba(4,85,113,1) 100%); 
-    margin-top: 5px;
+    margin-top: 90px;
     color: white;
     width: 90%;
     height: 50px;

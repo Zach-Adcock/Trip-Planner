@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Concerts from "./Concerts";
 import Sports from "./Sports";
 
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
+
 
 const Home = () => {
     
@@ -18,40 +22,134 @@ const Home = () => {
         // console.log(searchCity, startDate, endDate)
     }
     
-    useEffect(() => {
+    //Updates city and dates when any of them are changed via form
+    useEffect(() => { 
         console.log(searchCity, startDate, endDate)
-    },[searchCity])
+    },[searchCity, startDate, endDate])
     
+    let settings = { //settings is for div Carousel
+        dots: true,
+        infinite: true,
+        speed: 900,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+    }
+
+
     return ( 
         <Container>
             <SearchBar updateSearchValues={(newCity, newStartDate, newEndDate) => {
-                // console.log('this works')
-                // console.log(newCity);
                 changeSearchValues(newCity, newStartDate, newEndDate)
             }} />
             
-            <Events>
-                <Concerts city={searchCity} startDate={startDate} endDate={endDate} />
-                <Sports city={searchCity} startDate={startDate} endDate={endDate} />
-            </Events>
+            <Carousel {...settings}>
+                <Wrap>
+                    <Title>Live Music</Title>
+                    <Concerts city={searchCity} startDate={startDate} endDate={endDate} />
+                </Wrap>
+                <Wrap>
+                    <Title>Sports Events</Title>
+                    <Sports city={searchCity} startDate={startDate} endDate={endDate} />
+                </Wrap>
+                <Wrap>
+                    <Title>Live Music</Title>
+                    <Box> empty box</Box>
+                    <div>Filler</div>
+                </Wrap>
+            </Carousel>
         </Container>
      );
 }
  
 
 const Container = styled.main`
+    position: relative;
     background: rgb(5,5,5);
     background: radial-gradient(circle, rgba(5,5,5,0.7651435574229692) 0%,
      rgba(4,78,110,1) 50%, rgba(0,0,0,0.5298494397759104) 100%);
     min-height: calc(100vh);
+    padding: 0 calc(5vw);
+    
 
 `;
 
-const Events = styled.div`
-    background: white;
-    height: 300px;
-    width: 500px;
-    color: black;
+const Carousel = styled(Slider)`
+    margin-top: 15px;
+
+    & > button {
+        opacity:.5;
+        height: 100%;
+        width: 6vw;
+        z-index: 1;
+
+        &:hover{
+            opacity: 1
+        }
+    }
+    ul li button {
+        &:before { 
+            font-size:12px;
+        }
+    }
+
+    li.slick-active button::before{
+        color: white;
+    }
+    .slick-list {
+        overflow: initial;
+    }
+    .slick-prev {
+        left: -75px;
+    }
+    .slick-next {
+        right: -75px;
+    }
+    .slick-slide > div {
+    margin: 0 10px;
+    }
+    .slick-list {
+    margin: 0 -10px;
+    }
 `;
+
+const Wrap = styled.div`
+    border-radius: 4px;
+    position: relative;
+
+    
+    .sliderDiv{
+        &:hover {
+            border: 5px solid rgb(26 81 105);
+        }
+        border: 2px solid white;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        /* padding: 2px 10px; */
+    }
+`;
+
+const Title = styled.div`
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border: 2px solid white;
+    border-radius: 9px;
+    width: 40vw;
+`;
+
+const Box = styled.div`
+    width: 100%;
+    height: 350px;
+    border: 2px solid white;
+    border-radius: 9px;
+    background-color: grey;
+    color: rgba(9,9,69,1);
+`;
+
+
 export default Home;
 

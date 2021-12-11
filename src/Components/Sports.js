@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import useEventDataFetch from "./useEventDataFetch";
 import styled from 'styled-components';
 
 
@@ -44,26 +43,82 @@ const Sports = (props) => {
     
     
     return ( 
+        <div className='sliderDiv'>
         <Container>
-            <div>{sportsArray.length !== 0 && 'jijio'}</div>
+            {/* <div>{sportsArray.length !== 0 && 'jijio'}</div> */}
             {/* { !sportsArray && sportsArray.map(sport => { */}
 
             {sportsArray.map(sport => {
+                console.log(sport);
                 return (
-                    <div key={sport.id}>
-                        <div>{'Name: ' + sport.name}</div>
-                        <div>{'Date: ' + sport.dates.start.localDate}</div>
-                        <div>{'Venue: ' + sport._embedded.venues['0'].name}</div>
-                    </div>
+                    <SportsSquare key={sport.id}>
+                        <a>
+                            <img src={sport.images[0].url} alt='concert' />
+                        </a>
+                        <InfoBlock>
+                            <div>{'Name: ' + sport.name}</div>
+                            <div>{'Date: ' + sport.dates.start.localDate}</div>
+                            <div>{'Venue: ' + sport._embedded.venues['0'].name}</div>
+                        </InfoBlock>
+                    </SportsSquare>
                 )
             })}
         </Container>
+        </div>
      );
 }
+
 const Container = styled.div`
-    /* background: green; */
-    height: 100px;
-    width: 500px;
-    color: black;
+    width: 100%;
+    height: 350px;
+
+    background-color: grey;
+    color: rgba(9,9,69,1);
+    display: grid;
+    grid-template-columns: repeat(5,minmax(0,1fr));
 `;
+
+const SportsSquare = styled.div`
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 5px 10px;
+    max-height: 325px;
+    padding-top: 5px;
+    /* border: 2px solid rgb(133 133 156); */
+
+    a {
+        display: flex;
+        align-items: center;
+        height: 60%;
+        width: 100%;
+        justify-content: center;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+
+            border: 1px solid white;
+            z-index: 1;
+        }
+    }
+`;
+
+const InfoBlock = styled.div`
+    overflow: scroll;
+    height: 40%;
+    padding: 0px 2px;
+    background-color: white;
+    border-radius: 9px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    div {
+        margin-top: 2px;
+    }
+`;
+
 export default Sports;

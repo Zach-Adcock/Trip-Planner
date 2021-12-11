@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import useEventDataFetch from "./useEventDataFetch";
 import styled from 'styled-components';
 
 
@@ -44,37 +43,83 @@ const Concerts = (props) => {
     
     
     return ( 
-        <Big>
+        <div className='sliderDiv'>
         <Container>
-            <div>{concertArray.length !== 0 && 'jijio'}</div>
-            {/* { !concertArray && concertArray.map(concert => { */}
-
             {concertArray.map(concert => {
                 return (
-                    <div key={concert.id}>
-                        <div>{'Name: ' + concert.name}</div>
-                        <div>{'Date: ' + concert.dates.start.localDate}</div>
-                        <div>{'Venue: ' + concert._embedded.venues['0'].name}</div>
-                    </div>
+                    <ConcertSquare key={concert.id}>
+                        <a>
+                            <img src={concert.images[0].url} alt='concert' />
+                        </a>
+                        <InfoBlock>
+                            <div>{concert.name}</div>
+                            <div>{'Date: ' + concert.dates.start.localDate}</div>
+                            <div>{'@ ' + concert._embedded.venues['0'].name}</div>
+                        </InfoBlock>
+                    </ConcertSquare>
                 )
             })}
         </Container>
-        </Big>
+        </div>
      );
 }
 
-const Big = styled.div`
-    position: fixed;
-`;
+// const Big = styled.div`
+// `;
 const Container = styled.div`
-    /* background: green; */
-    position: relative;
-    top: 200px;
-    left: 0px;
-    height: 100px;
-    width: 500px;
-    color: black;
+    width: 100%;
+    height: 350px;
+
+    background-color: grey;
+    color: rgba(9,9,69,1);
+    display: grid;
+    grid-template-columns: repeat(5,minmax(0,1fr));
 `;
+
+const ConcertSquare = styled.div`
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin: 5px 10px;
+    max-height: 325px;
+    /* border: 2px solid rgb(133 133 156); */
+
+    a {
+        display: flex;
+        align-items: center;
+        height: 60%;
+        width: 100%;
+        justify-content: center;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+
+            border: 1px solid white;
+            z-index: 1;
+        }
+    }
+`;
+
+const InfoBlock = styled.div`
+    height: 40%;
+    padding: 0px 2px;
+    background-color: white;
+    border-radius: 9px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    div {
+        margin-top: 2px;
+    }
+`;
+
+
+
+
 export default Concerts;
 
 

@@ -19,10 +19,10 @@ const Nav = styled.nav`
     color: rgb(21 74 96);
     font-size: 28px;
     letter-spacing: 2px;
-    height: 100px;
+    height: 80px;
     width: 100%;
-    position: relative;
-
+    position: fixed;
+    z-index: 3;
 
 `;
 
