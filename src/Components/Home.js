@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import styled from "styled-components";
 import Concerts from "./Concerts";
 import Sports from "./Sports";
+import Welcome from "./Welcome";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -13,9 +14,10 @@ const Home = () => {
     
     const [searchCity, setSearchCity] = useState('Seattle');
     const [startDate, setStartDate] = useState('2021-12-18T00:00:00Z');
-    const [endDate, setEndDate] = useState('2021-12-20T00:00:00Z');
+    const [endDate, setEndDate] = useState('2021-12-19T00:00:00Z');
     
     const changeSearchValues = (newCity, newStartDate, newEndDate) => {
+        console.log(newEndDate)
         setSearchCity(newCity);
         setStartDate(newStartDate + 'T00:00:00Z');
         setEndDate(newEndDate + 'T00:00:00Z');
@@ -42,7 +44,9 @@ const Home = () => {
             <SearchBar updateSearchValues={(newCity, newStartDate, newEndDate) => {
                 changeSearchValues(newCity, newStartDate, newEndDate)
             }} />
-            
+            <CityImg>
+                <Welcome city={searchCity}/>
+            </CityImg>
             <Carousel {...settings}>
                 <Wrap>
                     <Title>Live Music</Title>
@@ -55,13 +59,23 @@ const Home = () => {
                 <Wrap>
                     <Title>Live Music</Title>
                     <Box> empty box</Box>
-                    <div>Filler</div>
                 </Wrap>
             </Carousel>
+            <EmptyDiv />
+            <EmptyDiv />
+            <EmptyDiv />
+            <EmptyDiv />
+
         </Container>
      );
 }
- 
+
+const EmptyDiv = styled.div`
+    width: 1000px;
+    height: 400px;
+    border: 5px solid grey;
+`;
+
 
 const Container = styled.main`
     position: relative;
@@ -70,13 +84,26 @@ const Container = styled.main`
      rgba(4,78,110,1) 50%, rgba(0,0,0,0.5298494397759104) 100%);
     min-height: calc(100vh);
     padding: 0 calc(5vw);
+    display: flex;
+    flex-direction: column;
     
 
 `;
 
+const CityImg = styled.div`
+
+    position: fixed;
+    z-index: 0;
+    width:1000px;
+    height:1500px;
+    margin: 90px auto;
+    left: 0;
+    right: 0;
+`;
+
 const Carousel = styled(Slider)`
     margin-top: 15px;
-
+    /* position: absolute; */
     & > button {
         opacity:.5;
         height: 100%;
@@ -115,14 +142,18 @@ const Carousel = styled(Slider)`
 
 const Wrap = styled.div`
     border-radius: 4px;
-    position: relative;
+    /* position: relative; */
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 
     
     .sliderDiv{
         &:hover {
-            border: 5px solid rgb(26 81 105);
+            border: 2px solid white;//rgb(26 81 105);
         }
-        border: 2px solid white;
+        border: 5px solid white;
         border-radius: 5px;
         display: flex;
         flex-direction: column;
@@ -139,6 +170,9 @@ const Title = styled.div`
     border: 2px solid white;
     border-radius: 9px;
     width: 40vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: grey;
 `;
 
 const Box = styled.div`

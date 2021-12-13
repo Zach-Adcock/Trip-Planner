@@ -4,15 +4,14 @@ import styled from 'styled-components';
 
 
 const Sports = (props) => {
-    console.log('Props ', props);
     const [sportsArray, setSportsArray] = useState([]);
 
 
     useEffect(() => {
-        setTimeout(function(){
-            getSports()
-        }, 2000); 
-        
+        // setTimeout(function(){
+        //     getSports()
+        // }, 2000); 
+        getSports()
     }, [props]);
 
     //makes call to ticketmaster API and filters events categorized as music
@@ -30,8 +29,8 @@ const Sports = (props) => {
                     let classifications = listing.classifications;
                     return classifications.some((x) => x.segment.name.toLowerCase() === 'sports')
                 })
-                console.log(sportsArray)
                 setSportsArray(sportsArray.slice(0,5)); //Only show first five sports
+                console.log(sports);
             })
             .catch((err) => console.log(err.message))
     };
@@ -49,16 +48,15 @@ const Sports = (props) => {
             {/* { !sportsArray && sportsArray.map(sport => { */}
 
             {sportsArray.map(sport => {
-                console.log(sport);
                 return (
                     <SportsSquare key={sport.id}>
                         <a>
                             <img src={sport.images[0].url} alt='concert' />
                         </a>
                         <InfoBlock>
-                            <div>{'Name: ' + sport.name}</div>
+                            <div>{sport.name}</div>
                             <div>{'Date: ' + sport.dates.start.localDate}</div>
-                            <div>{'Venue: ' + sport._embedded.venues['0'].name}</div>
+                            <div>{'@ ' + sport._embedded.venues['0'].name}</div>
                         </InfoBlock>
                     </SportsSquare>
                 )
@@ -107,7 +105,7 @@ const SportsSquare = styled.div`
 const InfoBlock = styled.div`
     overflow: scroll;
     height: 40%;
-    padding: 0px 2px;
+    padding: 19px 2px;
     background-color: white;
     border-radius: 9px;
 

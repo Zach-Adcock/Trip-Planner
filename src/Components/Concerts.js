@@ -4,15 +4,13 @@ import styled from 'styled-components';
 
 
 const Concerts = (props) => {
-    console.log('Props ', props);
     const [concertArray, setConcertArray] = useState([]);
 
-
     useEffect(() => {
-        setTimeout(function(){
-            getConcerts()
-        }, 2000); 
-        
+        // setTimeout(function(){
+        //     getConcerts()
+        // }, 2000); 
+        getConcerts()
     }, [props]);
 
     //makes call to ticketmaster API and filters events categorized as music
@@ -30,8 +28,8 @@ const Concerts = (props) => {
                     let classifications = listing.classifications;
                     return classifications.some((x) => x.segment.name.toLowerCase() === 'music')
                 })
-                console.log(concertsArray)
                 setConcertArray(concertsArray.slice(0,5)); //Only show first five concerts
+                console.log(concerts);
             })
             .catch((err) => console.log(err.message))
     };

@@ -8,19 +8,36 @@ const SearchBar = (props) => {
         {city: "Seattle", startDate: "2021-12-18T00:00:00Z", endDate: "2021-12-20T00:00:00Z"}
     )
 
-    // console.log(formData);
-
-    const handleChange = e => {
+    //When form input changes... update state
+    const handleChange = e => {  
         setFormData(prevFormData => {
             return {...prevFormData, [e.target.name]: e.target.value}
         })
     }
-    
+    /*Ticketmaster API doesn't allow start date == end date
+    Function to add one day to the end date if the user sets them as equal*/
+    function addDays(endDate, days) { 
+        var date = new Date(endDate); 
+        date.setDate(date.getDate() + days);
+        var dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+        .toISOString()
+        .split("T")[0];
+        console.log('ran');
+        setFormData(prevFormData => {
+            return {...prevFormData, [endDate]: dateString}
+        })
+      }
+
     return ( 
         <Wrap>
             <CityForm onSubmit={(e) => {
                 e.preventDefault();
-                props.updateSearchValues(formData.city, formData.startDate, formData.endDate);
+                if (formData.startDate === formData.endDate){
+                    addDays(formData.startDate, 2);
+                }
+                setTimeout(function(){ //allows time for state to be update from function addDays
+                    props.updateSearchValues(formData.city, formData.startDate, formData.endDate);
+                }, 2000); 
             }}>    
                 <label>City:</label>
                 <input
@@ -86,7 +103,7 @@ const CityForm = styled.form`
 const Wrap = styled.div`
     display: flex;
     justify-content: center;
-
+    z-index:1;
 `;
 
 
@@ -96,57 +113,5 @@ const SearchButton = styled.button`
 `;
 
 export default SearchBar;
-// import { useState } from "react";
-// import Concerts from "./Concerts";
 
-// const SearchBar = () => {
-//     const [city,setCity] = useState('Seattle');
-//     const [startDate, setStartDate] = useState('2021-11-18T00:00:00Z');
-//     const [endDate, setEndDate] = useState('2021-11-21T00:00:00Z');
-//     const [isPending, setIsPending] = useState(false);
-//     const [submitted, setSubmitted] = useState(false);
 
-    
-//     const onSearch = (e) => {
-//       e.preventDefault();
-//       setSubmitted(true);
-//       setIsPending(true);
-//     };
-    
-//     return ( 
-//         <div className="search">
-//             {/* {
-//               submitted ? <Concerts city={city} startDate={startDate} endDate={endDate} /> :
-//               <Concerts city={'Seattle'} startDate={'2021-11-18T00:00:00Z'} endDate={'2021-11-21T00:00:00Z'} /> 
-//             } */}
-            
-//             <form onSubmit={onSearch}>
-//                 <label>City:</label>
-//                 <input
-//                     type="text"
-//                     required
-//                     value={city}
-//                     onChange={(e) => setCity(e.target.value)}
-//                 />
-//                 <label>Start Date:</label>
-//                 <input
-//                     type="date"
-//                     required
-//                     value={startDate}
-//                     onChange={(e) => setStartDate(e.target.value)}
-//                 ></input>
-//                 <label>End date:</label>
-//                 <input
-//                     type="date"
-//                     value={endDate}
-//                     onChange={(e) => setEndDate(e.target.value)}
-//                 >
-//                 </input>
-//                 { !isPending && <button>Search</button>}
-//                 { isPending && <button disabled>Loading...</button>}
-//             </form>
-//         </div>
-//      );
-// }
- 
-// export default SearchBar;
