@@ -46,13 +46,15 @@ const Concerts = (props) => {
             {concertArray.map(concert => {
                 return (
                     <ConcertSquare key={concert.id}>
-                        <a>
+                        <div>
                             <img src={concert.images[0].url} alt='concert' />
-                        </a>
+                        </div>
                         <InfoBlock>
-                            <div>{concert.name}</div>
-                            <div>{'Date: ' + concert.dates.start.localDate}</div>
-                            <div>{'@ ' + concert._embedded.venues['0'].name}</div>
+                            <a href = {concert.url}>
+                                <div>{concert.name}</div>
+                                <div>{'Date: ' + concert.dates.start.localDate}</div>
+                                <div>{'@ ' + concert._embedded.venues['0'].name}</div>
+                            </a>
                         </InfoBlock>
                     </ConcertSquare>
                 )
@@ -82,7 +84,7 @@ const ConcertSquare = styled.div`
     max-height: 325px;
     /* border: 2px solid rgb(133 133 156); */
 
-    a {
+    div {
         display: flex;
         align-items: center;
         height: 60%;
@@ -99,19 +101,35 @@ const ConcertSquare = styled.div`
     }
 `;
 
-const InfoBlock = styled.div`
+const InfoBlock = styled.a`
     height: 40%;
     padding: 0px 2px;
     background-color: white;
     border-radius: 9px;
-
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     align-content: center;
-    div {
-        margin-top: 2px;
+    &:hover {
+        transform: scale(1.05);
+
+    }
+    a {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: black;
+        justify-content: space-around; 
+        &:hover {
+            text-decoration: underline;
+        }
+        div {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20px;
+        }
     }
 `;
 

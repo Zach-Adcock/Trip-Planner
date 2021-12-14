@@ -50,13 +50,15 @@ const Sports = (props) => {
             {sportsArray.map(sport => {
                 return (
                     <SportsSquare key={sport.id}>
-                        <a>
+                        <div>
                             <img src={sport.images[0].url} alt='concert' />
-                        </a>
+                        </div>
                         <InfoBlock>
-                            <div>{sport.name}</div>
-                            <div>{'Date: ' + sport.dates.start.localDate}</div>
-                            <div>{'@ ' + sport._embedded.venues['0'].name}</div>
+                            <a href = {sport.url}>
+                                <div>{sport.name}</div>
+                                <div>{'Date: ' + sport.dates.start.localDate}</div>
+                                <div>{'@ ' + sport._embedded.venues['0'].name}</div>
+                            </a>
                         </InfoBlock>
                     </SportsSquare>
                 )
@@ -85,7 +87,7 @@ const SportsSquare = styled.div`
     padding-top: 5px;
     /* border: 2px solid rgb(133 133 156); */
 
-    a {
+    div {
         display: flex;
         align-items: center;
         height: 60%;
@@ -114,8 +116,24 @@ const InfoBlock = styled.div`
     align-items: center;
     justify-content: center;
     align-content: center;
-    div {
-        margin-top: 2px;
+    &:hover {
+        transform: scale(1.05);
+
+    }
+    a {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: black;
+        justify-content: space-around; 
+        &:hover {
+            text-decoration: underline;
+        }
+        div {
+            text-align: center;
+            vertical-align: middle;
+            line-height: 20px;
+        }
     }
 `;
 
