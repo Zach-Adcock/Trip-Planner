@@ -8,7 +8,7 @@ import Welcome from "./Welcome";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import YelpEvents from "./YelpEvents";
+import RestaurantFetch from "./RestaurantFetch";
 
 
 const Home = () => {
@@ -62,7 +62,7 @@ const Home = () => {
                     <Box> empty box</Box>
                 </Wrap>
             </Carousel>
-            <YelpEvents city={searchCity} startDate={startDate} endDate={endDate}/>
+            <RestaurantFetch city={searchCity} startDate={startDate} endDate={endDate}/>
             <EmptyDiv />
             <EmptyDiv />
             <EmptyDiv />
