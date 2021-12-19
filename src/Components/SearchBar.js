@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const SearchBar = (props) => {
 
     const [formData, setFormData] = useState(
-        {city: "Seattle", startDate: "2021-12-18T00:00:00Z", endDate: "2021-12-20T00:00:00Z"}
+        {city: props.city, startDate: props.startDate, endDate: props.endDate}
     )
 
     //When form input changes... update state
@@ -44,7 +44,7 @@ const SearchBar = (props) => {
                     type="text"
                     required
                     onChange={handleChange}
-                    // value={city}
+                    // value={props.city}
                     name="city"
 
                 />

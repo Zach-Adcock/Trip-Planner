@@ -14,8 +14,8 @@ import RestaurantFetch from "./RestaurantFetch";
 const Home = () => {
     
     const [searchCity, setSearchCity] = useState('Seattle');
-    const [startDate, setStartDate] = useState('2021-12-18T00:00:00Z');
-    const [endDate, setEndDate] = useState('2021-12-19T00:00:00Z');
+    const [startDate, setStartDate] = useState('2021-12-23T00:00:00Z');
+    const [endDate, setEndDate] = useState('2022-01-01T00:00:00Z');
     
     const changeSearchValues = (newCity, newStartDate, newEndDate) => {
         console.log(newEndDate)

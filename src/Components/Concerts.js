@@ -35,14 +35,8 @@ const Concerts = (props) => {
     };
 
 
-
-
-    
-    
-    
-    return ( 
-        <div className='sliderDiv'>
-        <Container>
+    let concertRender = (
+        <ul>
             {concertArray.map(concert => {
                 return (
                     <ConcertSquare key={concert.id}>
@@ -59,6 +53,16 @@ const Concerts = (props) => {
                     </ConcertSquare>
                 )
             })}
+        </ul>
+    )
+
+    
+    
+    
+    return ( 
+        <div className='sliderDiv'>
+        <Container>
+            {concertRender}
         </Container>
         </div>
      );
@@ -67,23 +71,28 @@ const Concerts = (props) => {
 // const Big = styled.div`
 // `;
 const Container = styled.div`
+    
     width: 100%;
     height: 350px;
 
     background-color: grey;
     color: rgba(9,9,69,1);
-    display: grid;
-    grid-template-columns: repeat(5,minmax(0,1fr));
+    ul{
+        padding: 0px;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(5,minmax(0,1fr));
+    }
 `;
 
 const ConcertSquare = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    margin: 5px 10px;
+    margin: 0px 10px;
     max-height: 325px;
     /* border: 2px solid rgb(133 133 156); */
-
+ 
     div {
         display: flex;
         align-items: center;
@@ -101,9 +110,9 @@ const ConcertSquare = styled.div`
     }
 `;
 
-const InfoBlock = styled.a`
+const InfoBlock = styled.div`
     height: 40%;
-    padding: 0px 2px;
+    /* padding: 0px 2px; */
     background-color: white;
     border-radius: 9px;
     cursor: pointer;
