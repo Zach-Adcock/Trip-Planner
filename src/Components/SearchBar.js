@@ -59,6 +59,7 @@ const SearchBar = (props) => {
                 <label>End date:</label>
                 <input
                     type="date"
+                    minDate={new Date()}
                     onChange={handleChange}
                     // value={endDate}
                     name="endDate"

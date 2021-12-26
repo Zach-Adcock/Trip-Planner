@@ -56,8 +56,8 @@ const RestaurantFetch = (props) => {
             });
             
             setBrewsArr([...breweriesArr]);
-            setRestaurantArr([...restaurantArr]);
-            setCafesArr([...cafesArr]);
+            setRestaurantArr([...restaurantArr.slice(0,7)]);
+            setCafesArr([...cafesArr.slice(0,7)]);
 
             // console.log(dataArr)
             
@@ -121,15 +121,45 @@ const RestaurantFetch = (props) => {
             }   
         </ul>
     );
+
+    const restaurantsRender = (
+        <ul>
+            {restaurantArr.map((restaurant) => {
+                return (
+                    <RestaurantBox key={restaurant.id}>
+                        <ImageBlock>
+                            <a href={restaurant.website} target="_blank" rel="noreferrer noopener">
+                                <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
+                            </a>
+                        </ImageBlock>
+                        <RestaurantCard>
+                            <a href={restaurant.website}>
+                                <div>{restaurant.name}</div>
+                            </a>
+                            <br/>
+                            <div>{`${restaurant.rating}/10`}</div>
+                        </RestaurantCard>
+                    </RestaurantBox>
+                )
+            })
+            }   
+        </ul>
+    );
+
+
     return ( 
         <Container>
-            <FoodandDrink>
+            <FoodandDrink id='breweriesRender'>
                 <Title>Breweries</Title>
                 {brewsRender}
             </FoodandDrink>
-            <FoodandDrink>
+            <FoodandDrink id='cafesRender'>
                 <Title>Cafes</Title>
                 {cafesRender}
+            </FoodandDrink>
+            <FoodandDrink id='restaurantsRender'>
+                <Title>Restaurants</Title>
+                {restaurantsRender}
             </FoodandDrink>
         </Container>
         // <FoodandDrink>
@@ -161,6 +191,7 @@ const FoodandDrink = styled.main`
 `;
 
 const Container = styled.div`
+    margin-top: 50px;
     display: flex;
     justify-content: space-around;
 

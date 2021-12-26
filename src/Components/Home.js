@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Concerts from "./Concerts";
 import Sports from "./Sports";
 import Welcome from "./Welcome";
+import Weather from "./Weather";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -62,7 +63,9 @@ const Home = () => {
                     <Box> empty box</Box>
                 </Wrap>
             </Carousel>
+            <Weather city={searchCity}/>
             <RestaurantFetch city={searchCity} startDate={startDate} endDate={endDate}/>
+            
             <EmptyDiv />
             <EmptyDiv />
             <EmptyDiv />
