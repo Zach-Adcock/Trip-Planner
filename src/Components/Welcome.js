@@ -15,7 +15,6 @@ const Welcome = (props) => {
         server: "65535",
         title: "Let the Kraken Play Hockey"}
         );
-
     //Uses Flickr API to get image of the searched city    
     async function images() {
 
@@ -26,9 +25,9 @@ const Welcome = (props) => {
             tags=${city + 'skyline'}&min_upload_date=1%2F1%2F2021&format=json&nojsoncallback=1extras=url_o`);
             
             const data = await res.json();
-            console.log(data);
             setImgObj(data.photos.photo[1]);
         } catch(err) {
+            console.log('Please enter a valid city');
             console.log(err.message);
             setImgObj({farm: 66,
                 id: "51739580084",
@@ -49,11 +48,23 @@ const Welcome = (props) => {
         images()
     }, [props.city])
 
+
+    if (!imgObj) {
+        return (
+            <Container>
+            <CityBox>
+                <CityImg>
+                    <img src={`https://live.staticflickr.com/` + 
+                    `65535/51759193502_e51945a1e2_b.jpg`} alt='city skyline' />
+                </CityImg>
+            </CityBox>
+            </Container>
+        )
+    }
     return (  
         <Container>
             <CityBox>
                 <CityImg>
-                    {/* <h1>City</h1> */}
                     <img src={`https://live.staticflickr.com/` + 
                     `${imgObj.server}/${imgObj.id}_${imgObj.secret}_b.jpg`} alt='city skyline' />
                 </CityImg>

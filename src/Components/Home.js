@@ -66,9 +66,9 @@ const Home = () => {
             <Weather city={searchCity}/>
             <RestaurantFetch city={searchCity} startDate={startDate} endDate={endDate}/>
             
+            {/* <EmptyDiv />
             <EmptyDiv />
-            <EmptyDiv />
-            <EmptyDiv />
+            <EmptyDiv /> */}
 
         </Container>
      );

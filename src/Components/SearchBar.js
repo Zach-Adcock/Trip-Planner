@@ -8,6 +8,11 @@ const SearchBar = (props) => {
         {city: props.city, startDate: props.startDate, endDate: props.endDate}
     )
 
+    // Find yesterday's date. Set's the min entry for date input                          
+    var dateObj = new Date();
+    dateObj.setDate(dateObj.getDate() - 1); 
+   
+
     //When form input changes... update state
     const handleChange = e => {  
         setFormData(prevFormData => {
@@ -52,6 +57,7 @@ const SearchBar = (props) => {
                 <input
                     type="date"
                     required
+                    min={dateObj.toISOString().slice(0,-14)} //date selected can't be in past
                     onChange={handleChange}
                     // value={startDate}
                     name="startDate"
@@ -59,7 +65,8 @@ const SearchBar = (props) => {
                 <label>End date:</label>
                 <input
                     type="date"
-                    minDate={new Date()}
+                    required
+                    min={dateObj.toISOString().slice(0,-14)} //date selected can't be in past
                     onChange={handleChange}
                     // value={endDate}
                     name="endDate"

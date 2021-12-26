@@ -23,7 +23,7 @@ const Weather = (props) => {
                 return data.json();
             })
             .then(function (data) {
-                console.log(data)
+                // console.log(data)
                 setCityWeather(data)
             })
             .catch(function (err) {
@@ -44,7 +44,6 @@ const Weather = (props) => {
 
     let weatherImage, currentTemp, currentTime ;
     if (cityWeather.length !== 0){
-        console.log(cityWeather)
         weatherImage = <img src={`http://openweathermap.org/img/wn/${cityWeather.current.weather[0].icon}@2x.png`} />
         currentTemp = Math.round(cityWeather.current.temp);
         let date = new Date();
@@ -69,7 +68,6 @@ const Weather = (props) => {
                 let weatherIcon = weatherForecastArr[i].weather[0].icon;
                 currentArr.push(dailyHigh, dailyLow, weatherIcon);
                 weatherRenderArr.push(currentArr);
-                console.log('todaysDaynum ', todaysDayNum)
                 todaysDayNum = (todaysDayNum === 6) ? 0 : ++todaysDayNum;
                 i++;
             } 
