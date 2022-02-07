@@ -1,13 +1,16 @@
 import styled from 'styled-components';
 
 
-const Header = () => {
+const Header = (props) => {
     return ( 
         <Nav>
             <Logo>
                 <img src={"/images/airplane.png"} alt="airplane" />
                 <div>Trip Planner</div>
             </Logo>
+            <CityDisplay>
+                <div>{props.city}</div>
+            </CityDisplay>
         </Nav>
      );
 }
@@ -23,6 +26,7 @@ const Nav = styled.nav`
     width: 100%;
     position: fixed;
     z-index: 3;
+    left: 0;
 
 `;
 
@@ -47,4 +51,20 @@ const Logo = styled.a`
     }
 `;
 
+
+const CityDisplay = styled.div`
+    width: 10%;
+    height: 50%;
+    color: black;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    div {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+    
+`;
 export default Header;

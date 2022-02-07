@@ -5,6 +5,7 @@ import Concerts from "./Concerts";
 import Sports from "./Sports";
 import Welcome from "./Welcome";
 import Weather from "./Weather";
+import Header from "./Header";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -12,18 +13,25 @@ import Slider from 'react-slick';
 import RestaurantFetch from "./RestaurantFetch";
 
 
+
+
 const Home = () => {
+    //Set the default page dates as the current week
+    let todayDate = new Date();
+    let oneWeekFromToday = new Date();
+    oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7); 
+    let initialStartDate = todayDate.toISOString().slice(0,11) + '00:00:00Z';
+    let initialEndDate = oneWeekFromToday.toISOString().slice(0,11) + '00:00:00Z';
     
     const [searchCity, setSearchCity] = useState('Seattle');
-    const [startDate, setStartDate] = useState('2021-12-23T00:00:00Z');
-    const [endDate, setEndDate] = useState('2022-01-01T00:00:00Z');
-    
+    const [startDate, setStartDate] = useState(initialStartDate);
+    const [endDate, setEndDate] = useState(initialEndDate);
+    // date needs to be formatted like: 2022-01-01T00:00:00Z;
     const changeSearchValues = (newCity, newStartDate, newEndDate) => {
         console.log(newEndDate)
         setSearchCity(newCity);
         setStartDate(newStartDate + 'T00:00:00Z');
         setEndDate(newEndDate + 'T00:00:00Z');
-        // console.log(searchCity, startDate, endDate)
     }
     
     //Updates city and dates when any of them are changed via form
@@ -43,6 +51,7 @@ const Home = () => {
 
     return ( 
         <Container>
+            <Header city={searchCity}/>
             <SearchBar updateSearchValues={(newCity, newStartDate, newEndDate) => {
                 changeSearchValues(newCity, newStartDate, newEndDate)
             }} />
@@ -58,10 +67,10 @@ const Home = () => {
                     <Title>Sports Events</Title>
                     <Sports city={searchCity} startDate={startDate} endDate={endDate} />
                 </Wrap>
-                <Wrap>
+                {/* <Wrap>
                     <Title>Live Music</Title>
                     <Box> empty box</Box>
-                </Wrap>
+                </Wrap> */}
             </Carousel>
             <Weather city={searchCity}/>
             <RestaurantFetch city={searchCity} startDate={startDate} endDate={endDate}/>

@@ -11,7 +11,7 @@ const SearchBar = (props) => {
     // Find yesterday's date. Set's the min entry for date input                          
     var dateObj = new Date();
     dateObj.setDate(dateObj.getDate() - 1); 
-   
+   console.log(dateObj)
 
     //When form input changes... update state
     const handleChange = e => {  
@@ -38,7 +38,7 @@ const SearchBar = (props) => {
             <CityForm onSubmit={(e) => {
                 e.preventDefault();
                 if (formData.startDate === formData.endDate){
-                    addDays(formData.startDate, 2);
+                    addDays(formData.endDate, 2);
                 }
                 setTimeout(function(){ //allows time for state to be update from function addDays
                     props.updateSearchValues(formData.city, formData.startDate, formData.endDate);

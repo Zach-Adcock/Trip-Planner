@@ -25,7 +25,7 @@ const RestaurantFetch = (props) => {
                 }
               };
             //Fetching data from Foursquare.   
-            let response = await fetch(`https://api.foursquare.com/v3/places/search?categories=13029%2C13032%2C13065&exclude_chains=true&fields=fsq_id%2Cname%2Ccategories%2Cwebsite%2Cverified%2Crating%2Cmenu%2Cphotos&near=${props.city}&sort=RATING&limit=20`, options)
+            let response = await fetch(`https://api.foursquare.com/v3/places/search?categories=13029%2C13032%2C13065&exclude_chains=true&fields=fsq_id%2Cname%2Ccategories%2Cwebsite%2Cverified%2Crating%2Cmenu%2Cphotos&near=${props.city}&sort=RATING&limit=50`, options)
             let data = await response.json();
             let dataArr = data.results;
             
@@ -80,9 +80,11 @@ const RestaurantFetch = (props) => {
                 return (
                     <RestaurantBox key={brewery.id}>
                         <ImageBlock>
-                            <a href={brewery.website} target="_blank" rel="noreferrer noopener">
-                                <img src={`${brewery.photos[0].prefix}original${brewery.photos[0].suffix}`} alt={brewery.name} />
-                            </a>
+                            <div>
+                                <a href={brewery.website} target="_blank" rel="noreferrer noopener">
+                                    <img src={`${brewery.photos[0].prefix}original${brewery.photos[0].suffix}`} alt={brewery.name} />
+                                </a>
+                            </div>
                         </ImageBlock>
                         <RestaurantCard>
                             <a href={brewery.website}>
@@ -104,9 +106,11 @@ const RestaurantFetch = (props) => {
                 return (
                     <RestaurantBox key={cafe.id}>
                         <ImageBlock>
-                            <a href={cafe.website} target="_blank" rel="noreferrer noopener">
-                                <img src={`${cafe.photos[0].prefix}original${cafe.photos[0].suffix}`} alt={cafe.name} />
-                            </a>
+                            <div>
+                                <a href={cafe.website} target="_blank" rel="noreferrer noopener">
+                                    <img src={`${cafe.photos[0].prefix}original${cafe.photos[0].suffix}`} alt={cafe.name} />
+                                </a>
+                            </div>
                         </ImageBlock>
                         <RestaurantCard>
                             <a href={cafe.website}>
@@ -128,9 +132,11 @@ const RestaurantFetch = (props) => {
                 return (
                     <RestaurantBox key={restaurant.id}>
                         <ImageBlock>
-                            <a href={restaurant.website} target="_blank" rel="noreferrer noopener">
-                                <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
-                            </a>
+                            <div className="wrap">
+                                <a href={restaurant.website} target="_blank" rel="noreferrer noopener">
+                                    <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
+                                </a>
+                            </div>
                         </ImageBlock>
                         <RestaurantCard>
                             <a href={restaurant.website}>
@@ -173,15 +179,18 @@ const RestaurantFetch = (props) => {
  
 
 const FoodandDrink = styled.main`
-    max-width: 40%;
+    width: 60%;
+    max-width: 390px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+    padding: 0px;
     color: white;
     /* height: 300px; */
     z-index: 1;
     ul{
+        padding: 0px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -240,19 +249,34 @@ const ImageBlock = styled.div`
     align-items: center;
     width: 40%;
     height: 50%;
-    
-    a{
-        width: 80%;
-        object-fit: cover;
-        img {
-        display: block;
-        
-        margin-left: auto;
-        margin-right: auto;
+    div{
+        max-height: 100%;
+        max-width: 100%;
         width: 100%;
-        height: 75%;
+        height: 100%;
+        display: flex;
+        a{
+        height: 100%;
+        width: 100%;
+        /* object-fit: cover; */
+        max-height: 100%;
+        max-width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            /* height: 20; */
+            max-height: 100%;
+            max-width: 100%;
+
         }
     }
+    }
+    
     
 `;
 
