@@ -46,7 +46,7 @@ const Welcome = (props) => {
 
     useEffect(() => {
         images()
-    }, [props.city])
+    }, [])
 
 
     if (!imgObj) {

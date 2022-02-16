@@ -22,7 +22,8 @@ const Home = () => {
     oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7); 
     let initialStartDate = todayDate.toISOString().slice(0,11) + '00:00:00Z';
     let initialEndDate = oneWeekFromToday.toISOString().slice(0,11) + '00:00:00Z';
-    
+    console.log('initialStartDate', initialStartDate)
+    console.log('initialEndDate', initialEndDate)
     const [searchCity, setSearchCity] = useState('Seattle');
     const [startDate, setStartDate] = useState(initialStartDate);
     const [endDate, setEndDate] = useState(initialEndDate);
@@ -35,9 +36,9 @@ const Home = () => {
     }
     
     //Updates city and dates when any of them are changed via form
-    useEffect(() => { 
-        console.log(searchCity, startDate, endDate)
-    },[searchCity, startDate, endDate])
+    // useEffect(() => { 
+    //     console.log(searchCity, startDate, endDate)
+    // },[searchCity, startDate, endDate])
     
     let settings = { //settings is for div Carousel
         dots: true,

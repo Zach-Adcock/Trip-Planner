@@ -46,7 +46,7 @@ const useEventDataFetch = (url) => {
                 
         //     })
         // return () => abortFetch.abort();
-    }, [url])
+    }, [])
     
     return { data, isPending, error } ;
 }

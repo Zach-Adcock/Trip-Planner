@@ -11,7 +11,7 @@ const Concerts = (props) => {
         //     getConcerts()
         // }, 2000); 
         getConcerts()
-    }, [props]);
+    }, []);
 
     //makes call to ticketmaster API and filters events categorized as music
     const getConcerts = () => { 

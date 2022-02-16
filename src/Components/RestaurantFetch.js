@@ -72,7 +72,7 @@ const RestaurantFetch = (props) => {
 
     useEffect(() => {
         images()
-    },[props]);
+    },[]);
     
     const brewsRender = (
         <ul>
