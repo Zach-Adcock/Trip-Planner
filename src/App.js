@@ -4,13 +4,14 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SearchBar from './Components/SearchBar';
 import Concerts from './Components/Concerts';
 import Header from './Components/Header';
+import styled from 'styled-components';
 
 
 function App() {
   return (
     
 
-    <div className="App">
+    <Container className="App">
       <Router>
         <Home />
         {/* <header className="content">
@@ -21,9 +22,15 @@ function App() {
           </Switch>
         </header> */}
       </Router>
-    </div>
+    </Container>
     
   );
 }
+
+
+const Container = styled.div`
+  max-width: 100vw;
+  overflow-x: clip;
+`;
 
 export default App;

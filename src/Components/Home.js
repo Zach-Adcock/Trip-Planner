@@ -6,6 +6,7 @@ import Sports from "./Sports";
 import Welcome from "./Welcome";
 import Weather from "./Weather";
 import Header from "./Header";
+import { mediaQueries } from "./DeviceSizes";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -22,14 +23,11 @@ const Home = () => {
     oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7); 
     let initialStartDate = todayDate.toISOString().slice(0,11) + '00:00:00Z';
     let initialEndDate = oneWeekFromToday.toISOString().slice(0,11) + '00:00:00Z';
-    console.log('initialStartDate', initialStartDate)
-    console.log('initialEndDate', initialEndDate)
     const [searchCity, setSearchCity] = useState('Seattle');
     const [startDate, setStartDate] = useState(initialStartDate);
     const [endDate, setEndDate] = useState(initialEndDate);
     // date needs to be formatted like: 2022-01-01T00:00:00Z;
     const changeSearchValues = (newCity, newStartDate, newEndDate) => {
-        console.log(newEndDate)
         setSearchCity(newCity);
         setStartDate(newStartDate + 'T00:00:00Z');
         setEndDate(newEndDate + 'T00:00:00Z');
@@ -47,6 +45,38 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
+        initialSlide: 1,
+        swipeToSlide: false,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: true
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2,
+                swipeToSlide: true,
+
+              }
+            },
+            {
+              breakpoint: 420,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                swipeToSlide: true,
+
+              }
+            }
+          ]
     }
 
 
@@ -59,36 +89,28 @@ const Home = () => {
             <CityImg>
                 <Welcome city={searchCity}/>
             </CityImg>
-            <Carousel {...settings}>
-                <Wrap>
-                    <Title>Live Music</Title>
-                    <Concerts city={searchCity} startDate={startDate} endDate={endDate} />
-                </Wrap>
-                <Wrap>
-                    <Title>Sports Events</Title>
-                    <Sports city={searchCity} startDate={startDate} endDate={endDate} />
-                </Wrap>
-                {/* <Wrap>
-                    <Title>Live Music</Title>
-                    <Box> empty box</Box>
-                </Wrap> */}
-            </Carousel>
+            <CarouselContainer>
+                <Carousel {...settings}>
+                    <Wrap>
+                        <Title>Live Music</Title>
+                        <Concerts city={searchCity} startDate={startDate} endDate={endDate} />
+                    </Wrap>
+                    <Wrap>
+                        <Title>Sports Events</Title>
+                        <Sports city={searchCity} startDate={startDate} endDate={endDate} />
+                    </Wrap>
+                    {/* Place holder for a third carousel item
+                        <Wrap>
+                            <Title>Live Music</Title>
+                            <Box> empty box</Box>
+                        </Wrap> */}
+                </Carousel>
+            </CarouselContainer>
             <Weather city={searchCity}/>
             <RestaurantFetch city={searchCity} startDate={startDate} endDate={endDate}/>
-            
-            {/* <EmptyDiv />
-            <EmptyDiv />
-            <EmptyDiv /> */}
-
         </Container>
      );
 }
-
-const EmptyDiv = styled.div`
-    width: 1000px;
-    height: 400px;
-    border: 5px solid grey;
-`;
 
 
 const Container = styled.main`
@@ -100,7 +122,11 @@ const Container = styled.main`
     padding: 0 calc(5vw);
     display: flex;
     flex-direction: column;
+    max-width: 100vw;
     
+    ${mediaQueries.phone} {
+        flex-direction: column;
+    }
 
 `;
 
@@ -115,7 +141,12 @@ const CityImg = styled.div`
     right: 0;
 `;
 
+const CarouselContainer = styled.div`
+    max-width: 100vw;
+`;
+
 const Carousel = styled(Slider)`
+    width: 95%;
     margin-top: 15px;
     /* position: absolute; */
     & > button {
@@ -187,6 +218,10 @@ const Title = styled.div`
     margin-left: auto;
     margin-right: auto;
     background-color: grey;
+
+    ${mediaQueries.phone} {
+        width: 70vw;
+    }
 `;
 
 const Box = styled.div`

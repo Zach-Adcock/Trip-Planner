@@ -1,18 +1,20 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { mediaQueries } from "./DeviceSizes";
 
 
 const Sports = (props) => {
     const [sportsArray, setSportsArray] = useState([]);
-
 
     useEffect(() => {
         // setTimeout(function(){
         //     getSports()
         // }, 2000); 
         getSports()
-    }, [props]);
+        console.log('called sports API')
+        console.log(props.city)
+    },[props.city, props.startDate, props.endDate ]);
 
     //makes call to ticketmaster API and filters events categorized as music
     const getSports = () => { 
@@ -39,30 +41,43 @@ const Sports = (props) => {
 
 
     
-    
-    
-    return ( 
-        <div className='sliderDiv'>
-        <Container>
-            {/* <div>{sportsArray.length !== 0 && 'jijio'}</div> */}
-            {/* { !sportsArray && sportsArray.map(sport => { */}
-
+    let sportsRender = (
+        <ul>
             {sportsArray.map(sport => {
                 return (
                     <SportsSquare key={sport.id}>
-                        <div>
+                        <ImageBlock>
                             <img src={sport.images[0].url} alt='concert' />
-                        </div>
+                        </ImageBlock>
                         <InfoBlock>
                             <a href = {sport.url}>
                                 <div>{sport.name}</div>
                                 <div>{'Date: ' + sport.dates.start.localDate}</div>
-                                <div>{'@ ' + sport._embedded.venues['0'].name}</div>
+                                <Venue>
+                                    <div>{'@ ' + sport._embedded.venues['0'].name}</div>
+                                </Venue>
                             </a>
                         </InfoBlock>
                     </SportsSquare>
                 )
-            })}
+            })} 
+        </ul>
+    );  
+    
+    let sportsArrayDetails= {
+        containerHeight: `${sportsArray.length * 200}`, //extends container height as events get added
+        numberOfEvents: `${sportsArray.length}`, //extends amount of rows in container as events added
+    }
+    console.log('sportsContainerLength', sportsArrayDetails.containerHeight)
+    if (sportsArray.length < 1){
+        sportsRender = 'No games scheduled between these dates.'
+    }
+    
+
+    return ( 
+        <div className='sliderDiv'>
+        <Container>
+            {sportsRender}
         </Container>
         </div>
      );
@@ -74,19 +89,39 @@ const Container = styled.div`
 
     background-color: grey;
     color: rgba(9,9,69,1);
-    display: grid;
-    grid-template-columns: repeat(5,minmax(0,1fr));
+    ${mediaQueries.phone} {
+        
+        margin: 0;
+        height: 800px;
+        height: (${(sportsArrayDetails) => sportsArrayDetails.containerHeight});
+    }
+    ul{
+        padding: 0px;
+        height: 100%;
+        display: grid;
+        grid-template-columns: repeat(5,minmax(0,1fr));
+        ${mediaQueries.phone} {
+            height: 100%;
+            /* grid-template-rows: repeat((${(sportsArrayDetails) => sportsArrayDetails.numberOfEvents}),minmax(0,1fr)); */
+            grid-template-columns: 1fr;
+        }
+    }
+    
 `;
 
 const SportsSquare = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    margin: 5px 10px;
+    margin: 0px 10px;
     max-height: 325px;
-    padding-top: 5px;
     /* border: 2px solid rgb(133 133 156); */
-
+    ${mediaQueries.phone} {
+        flex-direction: row;
+        height: 150px;   
+        align-items: center;
+ 
+    }
     div {
         display: flex;
         align-items: center;
@@ -100,6 +135,15 @@ const SportsSquare = styled.div`
 
             border: 1px solid white;
             z-index: 1;
+        }
+    }
+`;
+
+const ImageBlock = styled.div`
+    width: 80%;
+    img{
+        ${mediaQueries.phone}{
+            width: 80%;
         }
     }
 `;
@@ -134,6 +178,12 @@ const InfoBlock = styled.div`
             vertical-align: middle;
             line-height: 20px;
         }
+    }
+`;
+
+const Venue = styled.div`
+    ${mediaQueries.phone} {
+        display: none !important;
     }
 `;
 

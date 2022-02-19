@@ -11,7 +11,6 @@ const SearchBar = (props) => {
     // Find yesterday's date. Set's the min entry for date input                          
     var dateObj = new Date();
     dateObj.setDate(dateObj.getDate() - 1); 
-   console.log(dateObj)
 
     //When form input changes... update state
     const handleChange = e => {  

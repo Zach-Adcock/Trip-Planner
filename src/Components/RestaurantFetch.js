@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
+import {mediaQueries} from './DeviceSizes';
 const RestaurantFetch = (props) => {
     
     const [brewsArr,setBrewsArr] = useState([]);
     const [restaurantArr,setRestaurantArr] = useState([]);
     const [cafesArr,setCafesArr] = useState([]);
+    console.log('devices', mediaQueries)
 
 
 
-
-    async function images() {
+    async function restaurants() {
         /* Info being used in FourSquare Fetch
         fields = fsq_id,name,categories, website, verified, rating, menu, photos 
         categories = 13029,13032,13065
@@ -42,7 +43,7 @@ const RestaurantFetch = (props) => {
                 });
                 if (conditionsMet > 0) return true
             })
-            console.log(cafesArr);
+            // console.log(cafesArr);
             let restaurantArr = dataArr.filter((place) => { //separate restaurants from data
                 let conditions = ['brewery', 'cafe', 'coffee', 'bakery']; //DON'T include these terms
                 let conditionsMet = 0;
@@ -58,8 +59,8 @@ const RestaurantFetch = (props) => {
             setBrewsArr([...breweriesArr]);
             setRestaurantArr([...restaurantArr.slice(0,7)]);
             setCafesArr([...cafesArr.slice(0,7)]);
+            console.log('restaurantARR', restaurantArr)
 
-            // console.log(dataArr)
             
         } catch(err) {
             console.log(err.message);
@@ -71,19 +72,18 @@ const RestaurantFetch = (props) => {
     }, 2000)
 
     useEffect(() => {
-        images()
+        restaurants()
+        console.log('called restaurant API')
     },[]);
     
     const brewsRender = (
         <ul>
             {brewsArr.map((brewery) => {
                 return (
-                    <RestaurantBox key={brewery.id}>
+                    <RestaurantBox key={brewery.fsq_id}>
                         <ImageBlock>
                             <div>
-                                <a href={brewery.website} target="_blank" rel="noreferrer noopener">
-                                    <img src={`${brewery.photos[0].prefix}original${brewery.photos[0].suffix}`} alt={brewery.name} />
-                                </a>
+                                <img src={`${brewery.photos[0].prefix}original${brewery.photos[0].suffix}`} alt={brewery.name} />
                             </div>
                         </ImageBlock>
                         <RestaurantCard>
@@ -104,12 +104,10 @@ const RestaurantFetch = (props) => {
         <ul>
             {cafesArr.map((cafe) => {
                 return (
-                    <RestaurantBox key={cafe.id}>
+                    <RestaurantBox key={cafe.fsq_id}>
                         <ImageBlock>
                             <div>
-                                <a href={cafe.website} target="_blank" rel="noreferrer noopener">
-                                    <img src={`${cafe.photos[0].prefix}original${cafe.photos[0].suffix}`} alt={cafe.name} />
-                                </a>
+                                <img src={`${cafe.photos[0].prefix}original${cafe.photos[0].suffix}`} alt={cafe.name} />
                             </div>
                         </ImageBlock>
                         <RestaurantCard>
@@ -130,12 +128,10 @@ const RestaurantFetch = (props) => {
         <ul>
             {restaurantArr.map((restaurant) => {
                 return (
-                    <RestaurantBox key={restaurant.id}>
+                    <RestaurantBox key={restaurant.fsq_id}>
                         <ImageBlock>
                             <div className="wrap">
-                                <a href={restaurant.website} target="_blank" rel="noreferrer noopener">
-                                    <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
-                                </a>
+                                <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
                             </div>
                         </ImageBlock>
                         <RestaurantCard>
@@ -179,7 +175,7 @@ const RestaurantFetch = (props) => {
  
 
 const FoodandDrink = styled.main`
-    width: 60%;
+    width: 60vw;
     max-width: 390px;
     display: flex;
     flex-direction: column;
@@ -189,13 +185,13 @@ const FoodandDrink = styled.main`
     color: white;
     /* height: 300px; */
     z-index: 1;
+    
     ul{
         padding: 0px;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
-
     }
 `;
 
@@ -204,6 +200,9 @@ const Container = styled.div`
     display: flex;
     justify-content: space-around;
 
+    ${mediaQueries.phone} {
+        flex-direction: column;
+    }
 `;
 
 const Title = styled.div`
@@ -220,8 +219,28 @@ const Title = styled.div`
     background-color: grey;
 `;
 
-const RestaurantCard = styled.div``;
-const RestaurantBox = styled.div`
+const RestaurantCard = styled.div`
+    text-decoration: none;
+    color: rgb(7 77 107);
+    font-weight: bold;
+    &:hover{
+        text-shadow: 1px 1px rgba(0,0,0, 0.5);
+        text-decoration: underline;
+        transition: opacity 0.2s ease 0s;
+
+    }
+    a {
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.2vw;//minmax(1.5vw, 50px);
+        color: rgb(7 77 107);
+        /* text-shadow: 1px 1px white; */
+
+    }
+
+`;
+
+const RestaurantBox = styled.li`
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -255,6 +274,7 @@ const ImageBlock = styled.div`
         width: 100%;
         height: 100%;
         display: flex;
+        justify-content: center;
         a{
         height: 100%;
         width: 100%;
@@ -268,7 +288,8 @@ const ImageBlock = styled.div`
             display: flex;
             margin-left: auto;
             margin-right: auto;
-            width: 100%;
+            width: 70%;
+            height: auto;
             /* height: 20; */
             max-height: 100%;
             max-width: 100%;

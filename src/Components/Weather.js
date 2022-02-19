@@ -34,17 +34,19 @@ const Weather = (props) => {
     
     useEffect(() => { //calls weather API when city changes
         weatherAPICall()
-    },[props.city])
+        console.log('called Weather API')
+    },[])
     
     useEffect(() => { //refreshes days of week for proper render
         weatherForecast()
+        console.log('set new forecast')
         // const weatherForecastArr = cityWeather.daily;
         // console.log(weatherForecastArr)
     },[cityWeather])
 
     let weatherImage, currentTemp, currentTime ;
     if (cityWeather.length !== 0){
-        weatherImage = <img src={`http://openweathermap.org/img/wn/${cityWeather.current.weather[0].icon}@2x.png`} />
+        weatherImage = <img src={`https://openweathermap.org/img/wn/${cityWeather.current.weather[0].icon}@2x.png`} />
         currentTemp = Math.round(cityWeather.current.temp);
         let date = new Date();
         currentTime = date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}); //current time in hours + minutes

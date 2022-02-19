@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styled from 'styled-components';
+import { mediaQueries } from "./DeviceSizes";
 
 
 const Concerts = (props) => {
@@ -11,7 +12,8 @@ const Concerts = (props) => {
         //     getConcerts()
         // }, 2000); 
         getConcerts()
-    }, []);
+        console.log('called concert API')
+    },[props]);
 
     //makes call to ticketmaster API and filters events categorized as music
     const getConcerts = () => { 
@@ -40,14 +42,16 @@ const Concerts = (props) => {
             {concertArray.map(concert => {
                 return (
                     <ConcertSquare key={concert.id}>
-                        <div>
+                        <ImageBlock>
                             <img src={concert.images[0].url} alt='concert' />
-                        </div>
+                        </ImageBlock>
                         <InfoBlock>
                             <a href = {concert.url}>
                                 <div>{concert.name}</div>
                                 <div>{'Date: ' + concert.dates.start.localDate}</div>
-                                <div>{'@ ' + concert._embedded.venues['0'].name}</div>
+                                <Venue>
+                                    <div>{'@ ' + concert._embedded.venues['0'].name}</div>
+                                </Venue>
                             </a>
                         </InfoBlock>
                     </ConcertSquare>
@@ -68,20 +72,26 @@ const Concerts = (props) => {
      );
 }
 
-// const Big = styled.div`
-// `;
 const Container = styled.div`
-    
     width: 100%;
     height: 350px;
-
+    margin: 0;
     background-color: grey;
     color: rgba(9,9,69,1);
+    ${mediaQueries.phone} {
+        height: 800px;
+        margin: 0;
+    }
     ul{
         padding: 0px;
         height: 100%;
         display: grid;
         grid-template-columns: repeat(5,minmax(0,1fr));
+        ${mediaQueries.phone} {
+            height: 100%;
+            grid-template-rows: repeat(5,minmax(0,1fr));
+            grid-template-columns: 1fr;
+        }
     }
 `;
 
@@ -92,13 +102,19 @@ const ConcertSquare = styled.div`
     margin: 0px 10px;
     max-height: 325px;
     /* border: 2px solid rgb(133 133 156); */
+    ${mediaQueries.phone} {
+        flex-direction: row;
+        height: 150px;   
+        align-items: center;
  
+    }
     div {
         display: flex;
         align-items: center;
         height: 60%;
         width: 100%;
         justify-content: center;
+        
         img {
             max-width: 100%;
             max-height: 100%;
@@ -106,6 +122,15 @@ const ConcertSquare = styled.div`
 
             border: 1px solid white;
             z-index: 1;
+        }
+    }
+`;
+
+const ImageBlock = styled.div`
+    width: 80%;
+    img{
+        ${mediaQueries.phone}{
+            width: 80%;
         }
     }
 `;
@@ -142,6 +167,11 @@ const InfoBlock = styled.div`
     }
 `;
 
+const Venue = styled.div`
+    ${mediaQueries.phone} {
+        display: none !important;
+    }
+`;
 
 
 

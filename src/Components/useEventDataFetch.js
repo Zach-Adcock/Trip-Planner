@@ -22,30 +22,7 @@ const useEventDataFetch = (url) => {
                 // setIsPending(false);
             }
         }
-        fetchData();
-        
-
-        // fetch(url, { signal: abortFetch.signal})
-        //     .then(res => {
-        //         if (!res.ok) {
-        //             throw Error('Data is not ok')
-        //         }
-        //         console.log(res.json());
-        //         return res.json();
-        //     })
-        //     .then(data => {
-        //         setData(data);
-        //         setIsPending(false);
-        //         setError(null);
-        //     })
-        //     .catch(err => {
-        //         if (err.name !== 'AbortError'){
-        //             setError(err.message);
-        //             setIsPending(false);
-        //         }
-                
-        //     })
-        // return () => abortFetch.abort();
+        fetchData();    
     }, [])
     
     return { data, isPending, error } ;

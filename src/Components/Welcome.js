@@ -46,6 +46,7 @@ const Welcome = (props) => {
 
     useEffect(() => {
         images()
+        console.log('called images API')
     }, [])
 
 
@@ -75,7 +76,9 @@ const Welcome = (props) => {
 }
 
 const Container = styled.div`
+    max-width: 100vw;
     img {
+        max-width: 90vw;
         /* border: 2px solid white;
         border-radius: 50%; */
     }
