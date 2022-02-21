@@ -45,7 +45,7 @@ const Home = () => {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: false,
-        initialSlide: 1,
+        initialSlide: 0,
         swipeToSlide: false,
         responsive: [
             {
@@ -126,6 +126,7 @@ const Container = styled.main`
     
     ${mediaQueries.phone} {
         flex-direction: column;
+        align-items: center;
     }
 
 `;
@@ -136,9 +137,13 @@ const CityImg = styled.div`
     z-index: 0;
     width:1000px;
     height:1500px;
-    margin: 90px auto;
+    margin: 163px auto;
     left: 0;
     right: 0;
+    ${mediaQueries.phone} {
+        margin: 130px auto;
+        width: 90vw;
+    }
 `;
 
 const CarouselContainer = styled.div`
@@ -147,7 +152,7 @@ const CarouselContainer = styled.div`
 
 const Carousel = styled(Slider)`
     width: 95%;
-    margin-top: 15px;
+    margin: 15px auto;
     /* position: absolute; */
     & > button {
         opacity:.5;

@@ -193,6 +193,10 @@ const FoodandDrink = styled.main`
         flex-direction: column;
         align-items: center;
     }
+    ${mediaQueries.phone} {
+        width: 90vw;
+        max-width: 100vw;
+    }
 `;
 
 const Container = styled.div`
@@ -217,6 +221,10 @@ const Title = styled.div`
     margin-left: auto;
     margin-right: auto;
     background-color: grey;
+
+    ${mediaQueries.phone} {
+        width: 70vw;
+    }
 `;
 
 const RestaurantCard = styled.div`
@@ -234,7 +242,9 @@ const RestaurantCard = styled.div`
         font-weight: bold;
         font-size: 1.2vw;//minmax(1.5vw, 50px);
         color: rgb(7 77 107);
-        /* text-shadow: 1px 1px white; */
+        ${mediaQueries.phone} {
+            font-size: 4vw;
+        }
 
     }
 
@@ -259,7 +269,9 @@ const RestaurantBox = styled.li`
         transition: opacity 0.2s ease 0s;
 
     }
-    
+    ${mediaQueries.phone} {
+        opacity: 1;
+    }
 `;
 
 const ImageBlock = styled.div`

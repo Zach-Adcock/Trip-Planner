@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { mediaQueries } from "./DeviceSizes";
 
 const Weather = (props) => {
     
@@ -111,18 +112,17 @@ const Weather = (props) => {
     return ( 
         <Container>
             <CurrentWeather>
-                <div>Currently</div>
-                <div>{weatherImage}</div>
-                <div>{currentTemp}&deg;F</div>
-                {currentTime}
+                <h3>Today's weather in {props.city}</h3>
+                <TodaysWeather>
+                    <div>{weatherImage}</div>
+                    <div>{currentTemp}&deg;F</div>
+                    {currentTime}
+                </TodaysWeather>
+                
             </CurrentWeather>
             <Forecast>
                 {forecastRender}
             </Forecast>
-            
-            {/* <Forecast>
-
-            </Forecast> */}
         </Container>
      );
 }
@@ -144,7 +144,22 @@ const Container = styled.div`
         border: 2px solid white;
         transition: opacity 0.2s ease 0s;
     }
+    ${mediaQueries.phone} {
+        margin-top: 80px;
+        flex-direction: column;
+        height: 600px;
+        border: 5px solid white;
+        border-radius: 15px;
+        opacity: .85;
+        padding: 0px 5px;
+    }
 
+`;
+
+const TodaysWeather = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 `;
 
@@ -166,14 +181,32 @@ const CurrentWeather = styled.div`
         color: white;
         border-radius:3px;
     }
+    ${mediaQueries.phone} {
+        flex: .3;
+        flex-direction: row;
+        align-items: center;
+    }
+    h3 {
+        padding-top: 25px
+    }
 `;
 
 const Forecast = styled.div`
+    ${mediaQueries.phone} {
+        flex: .7;
+    }
     ul {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         grid-gap: 25px;
         padding: 0px;
+        ${mediaQueries.phone} {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            li {
+                border: 2px solid white;
+            }
+        }
     }
     
 `;

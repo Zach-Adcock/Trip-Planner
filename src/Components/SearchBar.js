@@ -1,6 +1,7 @@
 import { useState, createContext } from "react";
 import Concerts from "./Concerts";
 import styled from 'styled-components';
+import { mediaQueries } from "./DeviceSizes";
 
 const SearchBar = (props) => {
 
@@ -104,6 +105,21 @@ const CityForm = styled.form`
         align-content: center;
 
     }
+    ${mediaQueries.phone}{
+        width: 90vw;
+        margin: 100px auto 10px auto;
+        height: 200px;
+        flex-direction: column;
+        align-items: stretch;
+
+        input {
+            margin: 0px 40px;
+            height: 40px;
+        }
+        label {
+            margin-top: 10px;
+        }
+    }
 
 `;
 
@@ -111,12 +127,21 @@ const Wrap = styled.div`
     display: flex;
     justify-content: center;
     z-index:1;
+
+    
 `;
 
 
 const SearchButton = styled.button`
     width: 20%;
     height: 25px;
+
+    ${mediaQueries.phone}{
+        width: 90vw;
+        margin: 10px auto;
+        width: 100px;
+        
+    }
 `;
 
 export default SearchBar;
