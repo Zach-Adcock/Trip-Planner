@@ -290,7 +290,6 @@ const ImageBlock = styled.div`
         a{
         height: 100%;
         width: 100%;
-        /* object-fit: cover; */
         max-height: 100%;
         max-width: 100%;
         display: flex;
@@ -302,9 +301,12 @@ const ImageBlock = styled.div`
             margin-right: auto;
             width: 70%;
             height: auto;
-            /* height: 20; */
-            max-height: 100%;
-            max-width: 100%;
+            max-height: 100% !important;
+            max-width: 100% !important;
+            ${mediaQueries.phone} {
+                max-width: 100px;
+                max-height: 100px;
+            }
 
         }
     }

@@ -114,6 +114,7 @@ const Home = () => {
 
 
 const Container = styled.main`
+    overflow-x: clip;
     position: relative;
     background: rgb(5,5,5);
     background: radial-gradient(circle, rgba(5,5,5,0.7651435574229692) 0%,
@@ -148,6 +149,7 @@ const CityImg = styled.div`
 
 const CarouselContainer = styled.div`
     max-width: 100vw;
+    width: 100%;
 `;
 
 const Carousel = styled(Slider)`
