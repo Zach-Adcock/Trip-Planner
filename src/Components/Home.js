@@ -40,7 +40,7 @@ const Home = () => {
     
     let settings = { //settings is for div Carousel
         dots: true,
-        infinite: true,
+        infinite: false,
         speed: 900,
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -128,6 +128,8 @@ const Container = styled.main`
     ${mediaQueries.phone} {
         flex-direction: column;
         align-items: center;
+        max-width: 100vw;
+        overflow-x: clip;
     }
 
 `;

@@ -130,7 +130,7 @@ const RestaurantFetch = (props) => {
                 return (
                     <RestaurantBox key={restaurant.fsq_id}>
                         <ImageBlock>
-                            <div className="wrap">
+                            <div>
                                 <img src={`${restaurant.photos[0].prefix}original${restaurant.photos[0].suffix}`} alt={restaurant.name} />
                             </div>
                         </ImageBlock>
@@ -188,10 +188,14 @@ const FoodandDrink = styled.main`
     
     ul{
         padding: 0px;
-        width: 100%;
+        width: 90vw;
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        ${mediaQueries.phone} {
+        max-width: 100vw;
+    }
     }
     ${mediaQueries.phone} {
         width: 90vw;
@@ -257,7 +261,7 @@ const RestaurantBox = styled.li`
     margin: 10px 0px;
     color: black;
     height: 200px;
-    width: 85%;
+    width: 25vw;
 
     border: 5px solid white;
     border-radius: 5px;
@@ -280,6 +284,11 @@ const ImageBlock = styled.div`
     align-items: center;
     width: 40%;
     height: 50%;
+
+    ${mediaQueries.phone} {
+        max-width: 40vw;
+        max-height: 100%;
+    }
     div{
         max-height: 100%;
         max-width: 100%;
@@ -287,29 +296,23 @@ const ImageBlock = styled.div`
         height: 100%;
         display: flex;
         justify-content: center;
-        a{
-        height: 100%;
-        width: 100%;
-        max-height: 100%;
-        max-width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
         img {
-            display: flex;
+            /* display: flex; */
             margin-left: auto;
             margin-right: auto;
             width: 70%;
             height: auto;
             max-height: 100% !important;
             max-width: 100% !important;
+            overflow:hidden;
             ${mediaQueries.phone} {
                 max-width: 100px;
                 max-height: 100px;
+                width: 100%;
+                height: 100%;
             }
 
         }
-    }
     }
     
     

@@ -47,7 +47,9 @@ const Logo = styled.div`
 
     ${mediaQueries.phone}{
         font-size: 10px;
-        width: 85%;
+        width: 89%;
+        overflow: visible;
+        min-width: 320px;
     }
 
     
