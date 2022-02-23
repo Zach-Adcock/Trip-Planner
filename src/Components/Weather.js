@@ -11,7 +11,7 @@ const Weather = (props) => {
     //API key = 3a30db69468b00dd50614afa3555031b
     const weatherAPICall = () => {
         //convert city to lat and lon
-        let geoRes = fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${props.city}&limit=1&appid=3a30db69468b00dd50614afa3555031b`)
+        let geoRes = fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${props.city}&limit=1&appid=3a30db69468b00dd50614afa3555031b`)
         .then(function (res) {
                 return res.json();
             })   
@@ -28,7 +28,7 @@ const Weather = (props) => {
                 setCityWeather(data)
             })
             .catch(function (err) {
-                console.log(err.message);
+                console.log(err);
             })
     };
     
