@@ -275,6 +275,7 @@ const RestaurantBox = styled.li`
     }
     ${mediaQueries.phone} {
         opacity: 1;
+        width: 75vw;
     }
 `;
 

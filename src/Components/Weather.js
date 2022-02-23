@@ -147,7 +147,7 @@ const Container = styled.div`
     ${mediaQueries.phone} {
         margin-top: 80px;
         flex-direction: column;
-        height: 600px;
+        height: 650px;
         border: 5px solid white;
         border-radius: 15px;
         opacity: .85;
