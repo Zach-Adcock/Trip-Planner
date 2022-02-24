@@ -7,13 +7,8 @@ import { mediaQueries } from "./DeviceSizes";
 const Sports = (props) => {
     const [sportsArray, setSportsArray] = useState([]);
 
-    useEffect(() => {
-        // setTimeout(function(){
-        //     getSports()
-        // }, 2000); 
+    useEffect(() => { 
         getSports()
-        console.log('called sports API')
-        console.log(props.city)
     },[props.city, props.startDate, props.endDate ]);
 
     //makes call to ticketmaster API and filters events categorized as music
@@ -68,7 +63,6 @@ const Sports = (props) => {
         containerHeight: `${sportsArray.length * 200}`, //extends container height as events get added
         numberOfEvents: `${sportsArray.length}`, //extends amount of rows in container as events added
     }
-    console.log('sportsContainerLength', sportsArrayDetails.containerHeight)
     if (sportsArray.length < 1){
         sportsRender = 'No games scheduled between these dates.'
     }

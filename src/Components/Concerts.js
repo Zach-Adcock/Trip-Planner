@@ -8,11 +8,7 @@ const Concerts = (props) => {
     const [concertArray, setConcertArray] = useState([]);
 
     useEffect(() => {
-        // setTimeout(function(){
-        //     getConcerts()
-        // }, 2000); 
         getConcerts()
-        console.log('called concert API')
     },[props]);
 
     //makes call to ticketmaster API and filters events categorized as music

@@ -47,7 +47,7 @@ const Welcome = (props) => {
     useEffect(() => {
         images()
         console.log('called images API')
-    }, [])
+    }, [props.city])
 
 
     if (!imgObj) {
@@ -79,8 +79,6 @@ const Container = styled.div`
     max-width: 100vw;
     img {
         max-width: 90vw;
-        /* border: 2px solid white;
-        border-radius: 50%; */
     }
 `;
  

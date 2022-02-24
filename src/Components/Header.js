@@ -75,12 +75,13 @@ const Title = styled.h2`
     width: 400px;
     height: 100%;
     margin: 0px;
+    margin-left: 60px;
     white-space: nowrap;
     overflow: hidden;
     font-size: 30px;
     display: flex;
     align-items: center;
-
+    
     ${mediaQueries.phone}{
         flex: .6;
         font-size: 20px;
@@ -89,7 +90,7 @@ const Title = styled.h2`
 `;
 
 const CityDisplay = styled.div`
-    width: 10%;
+    width: 20%;
     height: 100%;
     color: black;
     margin: auto;

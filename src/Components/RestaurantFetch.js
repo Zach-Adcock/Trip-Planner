@@ -6,7 +6,6 @@ const RestaurantFetch = (props) => {
     const [brewsArr,setBrewsArr] = useState([]);
     const [restaurantArr,setRestaurantArr] = useState([]);
     const [cafesArr,setCafesArr] = useState([]);
-    console.log('devices', mediaQueries)
 
 
 
@@ -43,7 +42,6 @@ const RestaurantFetch = (props) => {
                 });
                 if (conditionsMet > 0) return true
             })
-            // console.log(cafesArr);
             let restaurantArr = dataArr.filter((place) => { //separate restaurants from data
                 let conditions = ['brewery', 'cafe', 'coffee', 'bakery']; //DON'T include these terms
                 let conditionsMet = 0;
@@ -73,8 +71,7 @@ const RestaurantFetch = (props) => {
 
     useEffect(() => {
         restaurants()
-        console.log('called restaurant API')
-    },[]);
+    },[props.city]);
     
     const brewsRender = (
         <ul>
@@ -163,13 +160,7 @@ const RestaurantFetch = (props) => {
                 <Title>Restaurants</Title>
                 {restaurantsRender}
             </FoodandDrink>
-        </Container>
-        // <FoodandDrink>
-            
-        //     <Breweries>
-        //     </Breweries>
-
-        // </FoodandDrink>            
+        </Container>          
      );
 }
  
@@ -185,7 +176,6 @@ const FoodandDrink = styled.main`
     color: white;
     /* height: 300px; */
     z-index: 1;
-    
     ul{
         padding: 0px;
         width: 90vw;

@@ -36,7 +36,7 @@ const Weather = (props) => {
     useEffect(() => { //calls weather API when city changes
         weatherAPICall()
         console.log('called Weather API')
-    },[])
+    },[props.city])
     
     useEffect(() => { //refreshes days of week for proper render
         weatherForecast()
