@@ -178,11 +178,14 @@ const FoodandDrink = styled.main`
     z-index: 1;
     ul{
         padding: 0px;
-        width: 90vw;
+        width: 30vw;
         display: flex;
         flex-direction: column;
         align-items: center;
-
+        z-index: 3;
+        li{
+            z-index: 4;
+        }
         ${mediaQueries.phone} {
         max-width: 100vw;
     }
@@ -198,8 +201,12 @@ const Container = styled.div`
     display: flex;
     justify-content: space-around;
 
-    ${mediaQueries.phone} {
+    ${mediaQueries.tablet} {
         flex-direction: column;
+        align-items: center;
+        width: 80vw;
+        margin-left: auto;
+        margin-right: auto;
     }
 `;
 
@@ -215,6 +222,7 @@ const Title = styled.div`
     margin-left: auto;
     margin-right: auto;
     background-color: grey;
+    min-width: 195px;
 
     ${mediaQueries.phone} {
         width: 70vw;
@@ -224,7 +232,9 @@ const Title = styled.div`
 const RestaurantCard = styled.div`
     text-decoration: none;
     color: rgb(7 77 107);
+    color: green;
     font-weight: bold;
+    z-index: 3;
     &:hover{
         text-shadow: 1px 1px rgba(0,0,0, 0.5);
         text-decoration: underline;
@@ -236,9 +246,10 @@ const RestaurantCard = styled.div`
         font-weight: bold;
         font-size: 1.2vw;//minmax(1.5vw, 50px);
         color: rgb(7 77 107);
-        ${mediaQueries.phone} {
+        ${mediaQueries.tablet} {
             font-size: 4vw;
         }
+        
 
     }
 
@@ -252,6 +263,7 @@ const RestaurantBox = styled.li`
     color: black;
     height: 200px;
     width: 25vw;
+    z-index: 2;
 
     border: 5px solid white;
     border-radius: 5px;
@@ -263,7 +275,7 @@ const RestaurantBox = styled.li`
         transition: opacity 0.2s ease 0s;
 
     }
-    ${mediaQueries.phone} {
+    ${mediaQueries.tablet} {
         opacity: 1;
         width: 75vw;
     }

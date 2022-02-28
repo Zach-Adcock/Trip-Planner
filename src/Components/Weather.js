@@ -138,6 +138,8 @@ const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    border: 5px solid white;
+    border-radius: 15px;
 
     &:hover{
         opacity: 1;
@@ -150,10 +152,14 @@ const Container = styled.div`
         height: 650px;
         border: 5px solid white;
         border-radius: 15px;
-        opacity: .85;
         padding: 0px 5px;
     }
 
+    ${mediaQueries.tablet} {
+       width: 85vw;
+       padding: 5px 10px;
+       opacity: .9;
+    }
 `;
 
 const TodaysWeather = styled.div`
@@ -165,12 +171,12 @@ const TodaysWeather = styled.div`
 
 const CurrentWeather = styled.div`
     width: 13%;
-    height: 55%;
-    margin: 0px 5px;
+    height: 90%;
+    margin: auto 5px;
     padding: 10px 0px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     font-weight: strong;
@@ -188,6 +194,9 @@ const CurrentWeather = styled.div`
     }
     h3 {
         padding-top: 25px
+        ${mediaQueries.tablet} {
+        font-size: 1px;
+    }
     }
 `;
 
