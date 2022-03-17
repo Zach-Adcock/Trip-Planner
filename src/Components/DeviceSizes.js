@@ -1,5 +1,3 @@
-
-
 export const mediaQueries =  {
 phone: `@media(max-width: 560px)`,
 tablet: `@media(max-width: 760px)`,

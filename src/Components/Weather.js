@@ -35,14 +35,12 @@ const Weather = (props) => {
     
     useEffect(() => { //calls weather API when city changes
         weatherAPICall()
-        console.log('called Weather API')
+        // console.log('called Weather API')
     },[props.city])
     
     useEffect(() => { //refreshes days of week for proper render
         weatherForecast()
-        console.log('set new forecast')
-        // const weatherForecastArr = cityWeather.daily;
-        // console.log(weatherForecastArr)
+        // console.log('set new forecast')
     },[cityWeather])
 
     let weatherImage, currentTemp, currentTime ;

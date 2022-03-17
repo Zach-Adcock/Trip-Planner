@@ -27,7 +27,7 @@ const Sports = (props) => {
                     return classifications.some((x) => x.segment.name.toLowerCase() === 'sports')
                 })
                 setSportsArray(sportsArray.slice(0,5)); //Only show first five sports
-                console.log(sports);
+                // console.log(sports);
             })
             .catch((err) => console.log(err.message))
     };

@@ -57,7 +57,7 @@ const RestaurantFetch = (props) => {
             setBrewsArr([...breweriesArr]);
             setRestaurantArr([...restaurantArr.slice(0,7)]);
             setCafesArr([...cafesArr.slice(0,7)]);
-            console.log('restaurantARR', restaurantArr)
+            // console.log('restaurantARR', restaurantArr)
 
             
         } catch(err) {
@@ -65,9 +65,6 @@ const RestaurantFetch = (props) => {
         }
             
     }
-    setTimeout(() =>{
-        // console.log(brewsArr)
-    }, 2000)
 
     useEffect(() => {
         restaurants()

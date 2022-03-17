@@ -27,7 +27,7 @@ const Concerts = (props) => {
                     return classifications.some((x) => x.segment.name.toLowerCase() === 'music')
                 })
                 setConcertArray(concertsArray.slice(0,5)); //Only show first five concerts
-                console.log(concerts);
+                // console.log(concerts);
             })
             .catch((err) => console.log(err.message))
     };

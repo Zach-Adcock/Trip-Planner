@@ -13,7 +13,6 @@ const useEventDataFetch = (url) => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                // console.log(json);
                 setData(json);
                 setIsPending(false);
             } catch (error) {
